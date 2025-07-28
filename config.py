@@ -6,7 +6,7 @@ class Settings(BaseSettings):
     environment: str
     gemini_api_key: str
     chroma_db_path: str
-    data_file_path: str
+    data_directory: str
     model_config = SettingsConfigDict(env_file=".env")
 
 # Create an instance of Settings

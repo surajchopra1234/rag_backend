@@ -1,10 +1,14 @@
 # Import necessary libraries
+import os
+import json
+from config import settings
+from datetime import datetime
 from typing import Generator
 from pydantic import BaseModel
 from fastapi import FastAPI, File, UploadFile, HTTPException, status
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
-from indexer import index_documents
+from indexer import add_document
 from retriever import retrieve_and_generate, speech_to_text
 
 # Create FastAPI application instance
@@ -23,10 +27,13 @@ app.add_middleware(
 class TextQuery(BaseModel):
     query: str
 
+# ==================== Helper Functions ====================
+
 def stream_generator(query: str) -> Generator[str, None, None]:
     """
     Function to generate a stream of responses from the RAG model
     """
+
     try:
         for chunk in retrieve_and_generate(query):
             yield chunk.text
@@ -34,29 +41,102 @@ def stream_generator(query: str) -> Generator[str, None, None]:
         print(f"Error during response generation: {e}")
         yield "An error occurred while generating the response"
 
-@app.post(
-    "/api/index/documents",
+# ==================== API Endpoints ====================>
+
+@app.get(
+    "/api/documents",
     status_code=status.HTTP_200_OK
 )
-def index_documents_endpoint():
+async def list_documents_endpoint():
     """
-    API endpoint to trigger the document indexing process
+    API endpoint to list all documents in the knowledge base
     """
+
     try:
-        print("Indexing of the documents has started")
-        index_documents()
-        print("Indexing of the documents has finished")
+        # List all the files in the knowledge base
+        files = os.listdir(settings.data_directory)
+
+        documents = []
+        for file_name in files:
+            if file_name.endswith('.json'):
+                # Load metadata from the JSON file
+                json_path = os.path.join(settings.data_directory, file_name)
+                with open(json_path, 'r') as buffer:
+                    metadata = json.load(buffer)
+                    documents.append(metadata)
 
         return {
             'status': 'success',
-            'message': 'Documents indexing process finished successfully'
+            'message': 'Documents listed successfully',
+            'documents': documents
         }
+
     except Exception as e:
-        print(f"An error occurred during indexing: {e}")
+        print(f"An error occurred while listing documents: {e}")
 
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f'An error occurred during indexing: {str(e)}'
+            detail=f'An error occurred while listing documents: {str(e)}'
+        )
+
+@app.post(
+    "/api/documents",
+    status_code=status.HTTP_201_CREATED
+)
+async def upload_document_endpoint(file: UploadFile = File(...)):
+    """
+    API endpoint to upload a document for indexing for RAG knowledge base
+    """
+
+    file_name = os.path.splitext(file.filename)[0].lower()
+    file_extension = os.path.splitext(file.filename)[1].lower()
+
+    # Only TXT and PDF files are allowed
+    allowed_extensions = {".txt", ".pdf"}
+    if file_extension not in allowed_extensions:
+        raise HTTPException(
+            status_code=status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
+            detail="Unsupported file type. Only PDF and TXT files are allowed"
+        )
+
+    try:
+        # Read the file content
+        content_bytes = await file.read()
+
+        # Create the data directory if it does not exist
+        os.makedirs(settings.data_directory, exist_ok=True)
+
+        # Save the file to the data directory
+        file_path = os.path.join(settings.data_directory, file.filename)
+        with open(file_path, 'wb') as buffer:
+            buffer.write(content_bytes)
+
+        # Save the file metadata to a JSON file
+        json_path = file_path + ".json"
+        metadata = {
+            "file_name": file_name,
+            "file_extension": file_extension,
+            "date": datetime.now().isoformat(),
+            "size": len(content_bytes)
+        }
+        with open(json_path, 'w') as buffer:
+            json.dump(metadata, buffer, indent=4)
+
+        # Add the document to the knowledge base
+        add_document(file_path, file_name, file_extension)
+
+        return {
+            'status': 'success',
+            'message': 'Document uploaded successfully',
+            'document': metadata
+        }
+
+    except Exception as e:
+        print(f"An error occurred while uploading the document: {e}")
+
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f'An error occurred while uploading the document: {str(e)}'
         )
 
 @app.post(
