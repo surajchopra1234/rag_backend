@@ -1,0 +1,280 @@
+-----
+
+About Our Company: Quantum Gadgets
+Our slogan is "Technology for Tomorrow, Today." We are an online retailer specializing in consumer electronics, smart home devices, and tech accessories since 2015. Our goal is to provide top-quality products with great customer service. You can contact us at support@quantumgadgets.example.com or call 1-800-555-0199. Our business hours are Monday to Friday, 9:00 AM to 6:00 PM EST. Our office is located at 123 Tech Avenue, Silicon Valley, CA 94043, but we do not have a public storefront.
+
+-----
+
+Policy Overview:
+- Shipping Policy
+- Return Policy
+- Warranty Information
+- Privacy Policy
+- Price Match Policy
+
+Shipping Policy
+Standard shipping costs $4.99 and typically takes 5-7 business days. Orders over $75 qualify for free standard shipping automatically. Expedited shipping is available for $12.99 and takes 2-3 business days. Overnight shipping costs $24.99 for 1-business-day delivery. We usually process and ship orders within 1-2 business days. We also ship internationally to Canada, UK, Germany, Australia, and Japan, but rates vary and customers are responsible for customs fees. Tracking information is sent via email once the order ships. Delays can occasionally occur due to carrier issues.
+
+Return Policy
+You can return items within 30 days of delivery. To be eligible for a return, items must be in new, unused condition with all original packaging. To start a return, please contact customer support for an RMA number. Refunds are sent to the original payment method within 5-7 business days after we receive the item. A 15% restocking fee might be applied to opened electronics that are not defective. Software, gift cards, and items marked as "Final Sale" cannot be returned.
+
+Warranty Information
+All products with the "Quantum Gadgets" brand name come with a 1-year limited warranty. This warranty covers defects in manufacturing and hardware failure. It does not cover accidental damage, water damage, or misuse. To make a warranty claim, email our support team with your order number and a description of the problem. For third-party products, the manufacturer's warranty applies.
+
+Privacy Policy
+We value your privacy. We collect customer information like name, address, and email solely for the purpose of processing orders and providing customer support. We do not sell or share your personal data with third-party marketers. Our website uses cookies to enhance user experience and for analytics. All payment information is encrypted and processed securely.
+
+Price Match Policy
+We offer a price match guarantee on identical, in-stock items from major authorized online retailers (e.g., Best Buy, Amazon). To request a price match, please contact our support team with a link to the competitor's product page *before* you place your order. The price match is based on the final, pre-tax price. We do not match prices from auction sites or third-party marketplace sellers.
+
+-----
+
+FAQ: How do I track my order?
+After your order ships, we will send you an email containing a tracking number and a link. You can also find tracking details by logging into your account and viewing your "Order History".
+
+FAQ: What payment methods do you accept?
+We accept major credit cards including Visa, MasterCard, American Express, and Discover. We also accept PayPal and Quantum Gadgets Gift Cards.
+
+FAQ: Can I change or cancel my order?
+You have a 1-hour window after placing your order to make changes or cancel it. Please call customer support at 1-800-555-0199 immediately. After one hour, orders are sent for processing and cannot be modified.
+
+FAQ: What if I receive a defective or damaged item?
+If your item arrives defective or damaged, please contact customer support within 7 days of delivery. We will arrange for a replacement or a full refund at no cost to you. The 15% restocking fee does not apply to defective items.
+
+FAQ: Why is my promo code not working?
+There are a few possible reasons: the code may have expired, it may have been typed incorrectly, or it may not apply to the items in your cart. For example, some codes exclude certain categories like "Drones" or "Final Sale" items. Please double-check the code and its terms.
+
+FAQ: Is the Nova Smartwatch waterproof?
+The Nova Smartwatch V3 has a 5ATM water resistance rating. This means it is suitable for shallow-water activities like swimming in a pool or ocean. It is not considered fully waterproof and should not be used for high-velocity water sports, scuba diving, or in a hot tub or sauna.
+
+FAQ: How do I pair my Aura Headphones?
+To pair your Aura Noise-Cancelling Headphones, turn them on and hold the power button for 5 seconds until the LED light flashes blue and red. Then, go to the Bluetooth settings on your device (phone, computer) and select "Aura Headphones" from the list of available devices.
+
+-----
+
+Promotion Overview:
+- Summer Sale
+- Welcome Offer for New Customers
+- Back to School Tech
+
+Promotion Title: Summer Sale
+Status: Expired
+Discount Code: SUMMER20
+Discount: 20% off entire order
+Details: This offer was valid from June 1, 2024, to August 31, 2024.
+Exclusions: The discount did not apply to products in the "Drones" category.
+
+Promotion Title: Welcome Offer for New Customers
+Status: Active
+Discount Code: WELCOME10
+Discount: 10% off your first order
+Details: This is an ongoing offer for new customers only.
+Applicable Categories: All products.
+Restrictions: This code cannot be combined with other discount codes.
+
+Promotion Title: Back to School Tech
+Status: Expired
+Discount Code: SCHOOL15
+Discount: 15% off specific categories
+Details: This offer was valid from August 1, 2024, to September 15, 2024.
+Applicable Categories: Tablets, Audio, Computer Accessories.
+
+-----
+
+Product Category Summary:
+
+Wearables:
+- Nova Smartwatch V3
+Audio:
+- Aura Noise-Cancelling Headphones
+- EchoBuds Pro
+Drones:
+- Stratus 4K Aerial Drone
+Computer Accessories:
+- CyberGlow RGB Mechanical Keyboard
+Accessories:
+- SolarFlare 20000mAh Power Bank
+- Photon Qi Fast Wireless Charging Pad
+Smart Home:
+- Quantum Smart Hub
+- Quantum Smart Plug (2-Pack)
+Tablets:
+- Nebula Tab 10
+Gaming:
+- Viper Pro RGB Gaming Mouse
+Office Tech:
+- Clarity 4K Pro Webcam
+Entertainment:
+- CinemaBeam Pico Projector
+
+Product: Nova Smartwatch V3
+ID: QG-SW-101
+Category: Wearables
+Price: $199.99
+Status: In Stock (254 available)
+Description: A health and connectivity smartwatch for tracking workouts, monitoring health, and receiving notifications.
+Key Features:
+- GPS tracking
+- Blood oxygen sensor
+- Heart rate monitoring
+- Water resistant
+Compatibility: iOS and Android
+Power: 14-day battery life
+Colors: Midnight Black, Silver, Rose Gold
+
+Product: Aura Noise-Cancelling Headphones
+ID: QG-HP-205
+Category: Audio
+Price: $249.50
+Status: In Stock (132 available)
+Description: Over-ear headphones with industry-leading active noise cancellation (ANC) for an immersive sound experience.
+Key Features:
+- Active Noise Cancellation (ANC)
+- Transparency mode
+- Built-in microphone for calls
+Connectivity: Bluetooth 5.3
+Power: 30-hour battery life, USB-C charging
+Colors: Matte Black, Ivory White, Navy Blue
+
+Product: EchoBuds Pro
+ID: QG-HP-206
+Category: Audio
+Price: $99.99
+Status: In Stock (310 available)
+Description: True wireless earbuds with a secure fit, ideal for workouts and daily use.
+Key Features:
+- IPX7 water-resistant
+- Crisp sound delivery
+Power: 8-hour earbud battery life, 32 hours total with wireless charging case.
+Colors: White, Black
+
+Product: Stratus 4K Aerial Drone
+ID: QG-DR-4K
+Category: Drones
+Price: $799.00
+Status: In Stock (45 available)
+Description: An easy-to-fly yet powerful drone for capturing 4K aerial video, suitable for beginners and professionals.
+Key Features:
+- Video Resolution: 4K
+- Obstacle avoidance sensors
+- Transmission Range: 8km
+Power: 30-minute flight time per battery
+Package Includes: Drone, one battery, remote controller
+Color: Granite Gray
+
+Product: CyberGlow RGB Mechanical Keyboard
+ID: QG-KB-G7
+Category: Computer Accessories
+Price: $129.99
+Status: Out of Stock
+Description: A mechanical gaming keyboard with customizable RGB lighting and a premium aluminum frame.
+Key Features:
+- Per-key customizable RGB lighting
+- Cherry MX Brown mechanical switches
+- Dedicated media keys
+- Aluminum frame
+Note: This item is currently out of stock.
+
+Product: SolarFlare 20000mAh Power Bank
+ID: QG-PW-501
+Category: Accessories
+Price: $59.99
+Status: In Stock (512 available)
+Description: A high-capacity portable charger to power devices on the go.
+Key Features:
+- 20000mAh capacity (charges a smartphone up to 5 times)
+- Solar panel for emergency trickle charging
+- Built-in LED flashlight
+Ports: 2x USB-A, 1x USB-C PD
+Colors: Black, Forest Green
+
+Product: Photon Qi Fast Wireless Charging Pad
+ID: QG-CP-800
+Category: Accessories
+Price: $39.99
+Status: In Stock (290 available)
+Description: A sleek, non-slip wireless charging pad for compatible phones and earbuds.
+Key Features:
+- Power Output: Up to 15W fast wireless charging
+- Qi-compatible
+- LED charging status indicator
+- Non-slip design
+Colors: Black, White
+
+Product: Quantum Smart Hub
+ID: QG-SM-H1
+Category: Smart Home
+Price: $119.00
+Status: In Stock (88 available)
+Description: A central hub to connect and control various smart home devices.
+Key Features:
+- Voice control via Alexa or Google Assistant
+- Manages lights, locks, thermostats, and more
+Connectivity: Zigbee, Z-Wave, Wi-Fi, Ethernet (required)
+Color: White
+
+Product: Quantum Smart Plug (2-Pack)
+ID: QG-SP-302
+Category: Smart Home
+Price: $24.99
+Status: In Stock (450 available)
+Description: A smart plug to control any standard outlet with your phone or voice. No hub required.
+Key Features:
+- Voice control via Alexa or Google Assistant
+- Set schedules and timers
+- Monitor energy consumption via Quantum Home app
+- No hub required
+Package Includes: Two smart plugs
+
+Product: Nebula Tab 10
+ID: QG-TB-201
+Category: Tablets
+Price: $329.00
+Status: In Stock (95 available)
+Description: A versatile Android tablet for work, study, and entertainment, featuring a 2K display.
+Key Features:
+- Display: 10.4-inch 2K screen
+- Processor: 8-core CPU
+- Memory: 6GB RAM
+- OS: Android 13
+Power: 7,100mAh battery for all-day use
+Package Includes: Quantum Stylus for note-taking and drawing
+
+Product: Viper Pro RGB Gaming Mouse
+ID: QG-GM-01
+Category: Gaming
+Price: $79.99
+Status: In Stock (180 available)
+Description: A lightweight, ergonomic gaming mouse with a high-precision optical sensor.
+Key Features:
+- Sensor: 16,000 DPI optical sensor
+- 8 programmable buttons
+- Customizable RGB lighting
+- Lightweight ergonomic design
+- Durability: Switches rated for 50 million clicks
+
+Product: Clarity 4K Pro Webcam
+ID: QG-WC-4K
+Category: Office Tech
+Price: $149.99
+Status: Low Stock (15 available)
+Description: An ultra-HD 4K webcam for professional-quality video calls.
+Key Features:
+- Video Resolution: 4K Ultra HD
+- AI-powered auto-framing and auto-focus
+- Dual noise-canceling microphones
+Connectivity: USB-C
+Note: Stock is low.
+
+Product: CinemaBeam Pico Projector
+ID: QG-PJ-110
+Category: Entertainment
+Price: $299.99
+Status: Out of Stock
+Description: A palm-sized, portable projector to create a movie screen on any wall.
+Key Features:
+- Brightness: 200-lumen lamp
+- Built-in speaker
+Connectivity: HDMI port, USB port
+Power: Built-in battery for up to 2.5 hours of playback
+Note: Currently out of stock. More stock expected next month.
