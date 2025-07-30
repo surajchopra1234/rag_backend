@@ -6,11 +6,11 @@ from datetime import datetime
 from typing import Generator
 from pydantic import BaseModel
 from fastapi import FastAPI, UploadFile, HTTPException, status
-from fastapi.responses import StreamingResponse
+from fastapi.responses import Response, StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from app.services.indexer import add_document, delete_document
 from app.services.retriever import retrieve_and_generate
-from app.services.speech import speech_to_text
+from app.services.speech import speech_to_text, text_to_speech
 
 # Create FastAPI application instance
 app = FastAPI()
@@ -233,4 +233,31 @@ async def queries_audio_endpoint(audio_file: UploadFile):
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="An internal error occurred while processing the audio file"
+        )
+
+
+@app.post(
+    "/api/text-to-speech",
+    status_code=status.HTTP_200_OK
+)
+def text_to_speech_endpoint(body: TextQuery):
+    """
+    API endpoint to convert text to speech using Groq's TTS model
+    """
+
+    try:
+        audio_bytes = text_to_speech(body.query)
+
+        return Response(
+            content=audio_bytes,
+            media_type='audio/wav',
+            headers={"Content-Disposition": "attachment; filename=output.wav"}
+        )
+
+    except Exception as e:
+        print(f"An error occurred during text-to-speech conversion: {e}")
+
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="An error occurred during text-to-speech conversion"
         )

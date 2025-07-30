@@ -26,3 +26,27 @@ def speech_to_text(audio_bytes: bytes) -> str:
             status_code=500,
             detail="An error occurred during speech-to-text conversion"
         )
+
+
+def text_to_speech(text: str) -> bytes:
+    """
+    Function to convert text to speech using Groq's TTS model
+    """
+
+    try:
+        audio = groq_client.audio.speech.create(
+            input=text,
+            model="playai-tts",
+            voice="Arista-PlayAI",
+            response_format="wav",
+        )
+
+        return audio.read()
+
+    except Exception as e:
+        print(f"Error during text-to-speech conversion: {e}")
+
+        raise HTTPException(
+            status_code=500,
+            detail="An error occurred during text-to-speech conversion"
+        )
