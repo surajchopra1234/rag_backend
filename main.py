@@ -5,11 +5,12 @@ from config import settings
 from datetime import datetime
 from typing import Generator
 from pydantic import BaseModel
-from fastapi import FastAPI, File, UploadFile, HTTPException, status
+from fastapi import FastAPI, UploadFile, HTTPException, status
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
-from indexer import add_document
-from retriever import retrieve_and_generate, speech_to_text
+from app.services.indexer import add_document, delete_document
+from app.services.retriever import retrieve_and_generate
+from app.services.speech import speech_to_text
 
 # Create FastAPI application instance
 app = FastAPI()
@@ -27,7 +28,9 @@ app.add_middleware(
 class TextQuery(BaseModel):
     query: str
 
-# ==================== Helper Functions ====================
+class DeleteDocument(BaseModel):
+    file_name: str
+
 
 def stream_generator(query: str) -> Generator[str, None, None]:
     """
@@ -41,7 +44,6 @@ def stream_generator(query: str) -> Generator[str, None, None]:
         print(f"Error during response generation: {e}")
         yield "An error occurred while generating the response"
 
-# ==================== API Endpoints ====================>
 
 @app.get(
     "/api/documents",
@@ -54,6 +56,7 @@ async def list_documents_endpoint():
 
     try:
         # List all the files in the knowledge base
+        os.makedirs(settings.data_directory, exist_ok=True)
         files = os.listdir(settings.data_directory)
 
         documents = []
@@ -79,16 +82,17 @@ async def list_documents_endpoint():
             detail=f'An error occurred while listing documents: {str(e)}'
         )
 
+
 @app.post(
     "/api/documents",
     status_code=status.HTTP_201_CREATED
 )
-async def upload_document_endpoint(file: UploadFile = File(...)):
+async def upload_document_endpoint(file: UploadFile):
     """
     API endpoint to upload a document for indexing for RAG knowledge base
     """
 
-    file_name = os.path.splitext(file.filename)[0].lower()
+    file_name = os.path.splitext(file.filename)[0]
     file_extension = os.path.splitext(file.filename)[1].lower()
 
     # Only TXT and PDF files are allowed
@@ -139,32 +143,78 @@ async def upload_document_endpoint(file: UploadFile = File(...)):
             detail=f'An error occurred while uploading the document: {str(e)}'
         )
 
+
+@app.delete(
+    "/api/documents",
+    status_code=status.HTTP_200_OK
+)
+async def delete_documents_endpoint(body: DeleteDocument):
+    """
+    API endpoint to delete a document from the knowledge base
+    """
+
+    try:
+        # List all the files in the knowledge base
+        files = os.listdir(settings.data_directory)
+
+        for file_name in files:
+            if file_name == body.file_name:
+                # Delete the document file
+                file_path = os.path.join(settings.data_directory, file_name)
+                if os.path.exists(file_path):
+                    os.remove(file_path)
+
+                # Delete the document metadata JSON file
+                json_path = file_path + ".json"
+                if os.path.exists(json_path):
+                    os.remove(json_path)
+
+                # Remove the document from the knowledge base
+                delete_document(body.file_name)
+
+                break
+
+        return {
+            'status': 'success',
+            'message': 'All documents deleted successfully'
+        }
+
+    except Exception as e:
+        print(f"An error occurred while deleting documents: {e}")
+
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f'An error occurred while deleting documents: {str(e)}'
+        )
+
+
 @app.post(
     "/api/queries/text",
     status_code=status.HTTP_200_OK
 )
-async def queries_text_endpoint(item: TextQuery):
+async def queries_text_endpoint(body: TextQuery):
     """
     API endpoint to handle RAG queries in text format
     """
-    print(f"Text query received: '{item.query}'")
+    print(f"Text query received: '{body.query}'")
 
     return StreamingResponse(
-        stream_generator(item.query),
+        stream_generator(body.query),
         media_type='text/plain'
     )
+
 
 @app.post(
     "/api/queries/audio",
     status_code=status.HTTP_200_OK
 )
-async def queries_audio_endpoint(audio_file: UploadFile = File(...)):
+async def queries_audio_endpoint(audio_file: UploadFile):
     """
     API endpoint to handle RAG queries in audio format
     """
     try:
         audio_bytes = await audio_file.read()
-        query = speech_to_text(audio_bytes, audio_file.content_type)
+        query = speech_to_text(audio_bytes)
         print(f"Audio query received: '{query}'")
 
         if not query or query.isspace():
