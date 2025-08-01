@@ -35,13 +35,13 @@ class DeleteDocument(BaseModel):
 class TextQuery(BaseModel):
     query: str
 
-def stream_generator(query: str) -> Generator[str, None, None]:
+def stream_generator(query: str, short: bool) -> Generator[str, None, None]:
     """
     Function to generate a stream of responses from the RAG model
     """
 
     try:
-        for chunk in retrieve_and_generate(query):
+        for chunk in retrieve_and_generate(query, short):
             yield chunk.text
     except Exception as e:
         print(f"Error during response generation: {e}")
@@ -235,7 +235,7 @@ async def queries_text_endpoint(body: TextQuery):
     print(f"Text query received: '{body.query}'")
 
     return StreamingResponse(
-        stream_generator(body.query),
+        stream_generator(body.query, False),
         media_type='text/plain'
     )
 
@@ -260,7 +260,7 @@ async def queries_audio_endpoint(audio_file: UploadFile):
             )
 
         return StreamingResponse(
-            stream_generator(query),
+            stream_generator(query, True),
             media_type='text/plain'
         )
     except Exception as e:
