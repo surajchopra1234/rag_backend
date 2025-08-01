@@ -5,12 +5,13 @@ from config import settings
 from datetime import datetime
 from typing import Generator
 from pydantic import BaseModel
-from fastapi import FastAPI, UploadFile, HTTPException, status
+from fastapi import FastAPI, UploadFile, HTTPException, status, BackgroundTasks
 from fastapi.responses import Response, StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from app.services.indexer import add_document, delete_document
 from app.services.retriever import retrieve_and_generate
 from app.services.speech import speech_to_text, text_to_speech
+from app.services.crawler import run_scrapy_crawler
 
 # Create FastAPI application instance
 app = FastAPI()
@@ -25,12 +26,14 @@ app.add_middleware(
 )
 
 # Pydantic model for text queries
-class TextQuery(BaseModel):
-    query: str
+class UploadUrl(BaseModel):
+    url: str
 
 class DeleteDocument(BaseModel):
     file_name: str
 
+class TextQuery(BaseModel):
+    query: str
 
 def stream_generator(query: str) -> Generator[str, None, None]:
     """
@@ -107,11 +110,12 @@ async def upload_document_endpoint(file: UploadFile):
         # Read the file content
         content_bytes = await file.read()
 
-        # Create the data directory if it does not exist
-        os.makedirs(settings.data_directory, exist_ok=True)
+        # Data directory to save the data
+        data_dir = settings.data_directory
+        os.makedirs(data_dir, exist_ok=True)
 
         # Save the file to the data directory
-        file_path = os.path.join(settings.data_directory, file.filename)
+        file_path = os.path.join(data_dir, file.filename)
         with open(file_path, 'wb') as buffer:
             buffer.write(content_bytes)
 
@@ -141,6 +145,38 @@ async def upload_document_endpoint(file: UploadFile):
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f'An error occurred while uploading the document: {str(e)}'
+        )
+
+
+@app.post(
+    "/api/documents/url",
+    status_code = status.HTTP_201_CREATED
+)
+async def upload_url_endpoint(body: UploadUrl, background_tasks: BackgroundTasks):
+    """
+    API endpoint to upload a website url for indexing for RAG knowledge base
+    """
+
+    try:
+        if not body.url.startswith(('http://', 'https://')):
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Invalid URL format. URL must start with 'http://' or 'https://'"
+            )
+
+        # Run the Scrapy crawler in the background
+        background_tasks.add_task(run_scrapy_crawler, body.url)
+
+        return {
+            "status": "success",
+            "message": f"Crawling started for {body.url} in the background."
+        }
+
+    except Exception as e:
+        print(f"An error occurred while uploading the URL: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f'An error occurred while uploading the URL: {str(e)}'
         )
 
 

@@ -1,13 +1,8 @@
 # Import necessary libraries
-from config import settings
 from app.services.embedding import generate_embedding
 from langchain_community.document_loaders import TextLoader, PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-import chromadb
-
-# ChromaDB client
-chromadb_client = chromadb.PersistentClient(path=settings.chroma_db_path)
-collection = chromadb_client.get_or_create_collection(name="document_embeddings")
+from app.clients.chromadb_client import collection
 
 
 def load_documents(file_path: str, file_extension: str):
@@ -26,12 +21,12 @@ def load_documents(file_path: str, file_extension: str):
     return loader.load()
 
 
-def split_documents(documents):
+def split_documents(documents, chunk_size, chunk_overlap):
     """
     Function to split documents into smaller chunks
     """
 
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap)
     return text_splitter.split_documents(documents)
 
 
@@ -53,7 +48,7 @@ def store_embeddings(split_docs, embeddings, file_name: str):
     )
 
 
-def add_document(file_path: str, file_name: str, file_extension: str):
+def add_document(file_path: str, file_name: str, file_extension: str, chunk_size=1000, chunk_overlap=200, sleep_time=0):
     """
     Function to add a document to the knowledge base of the RAG model
     """
@@ -63,7 +58,7 @@ def add_document(file_path: str, file_name: str, file_extension: str):
     print(f"Number of documents loaded: {len(docs)}")
 
     # Split the documents into chunks
-    split_docs = split_documents(docs)
+    split_docs = split_documents(docs, chunk_size, chunk_overlap)
     print(f"Number of documents after splitting: {len(split_docs)}")
 
     # Generate embeddings for each document

@@ -1,14 +1,8 @@
 # Import necessary libraries
-from config import settings
+from google.genai import types
 from app.clients.gemini_client import gemini_client
 from app.services.embedding import generate_embedding
-from google.genai import types
-import chromadb
-
-# ChromaDB client
-chromadb_client = chromadb.PersistentClient(path=settings.chroma_db_path)
-collection = chromadb_client.get_collection(name="document_embeddings")
-
+from app.clients.chromadb_client import collection
 
 def retrieve_documents(query: str):
     """
