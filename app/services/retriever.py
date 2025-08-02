@@ -4,6 +4,7 @@ from app.clients.gemini_client import gemini_client
 from app.services.embedding import generate_embedding
 from app.clients.chromadb_client import collection
 
+
 def retrieve_documents(query: str):
     """
     Function to retrieve documents based on a query

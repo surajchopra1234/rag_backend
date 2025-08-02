@@ -5,9 +5,9 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from app.clients.chromadb_client import collection
 
 
-def load_documents(file_path: str, file_extension: str):
+def load_file(file_path: str, file_extension: str):
     """
-    Function to load a documents based on its file extension
+    Function to load a file based on its extension (.txt or .pdf)
     """
 
     if file_extension == ".txt":
@@ -32,7 +32,7 @@ def split_documents(documents, chunk_size, chunk_overlap):
 
 def store_embeddings(split_docs, embeddings, file_name: str):
     """
-    Function to store embeddings in ChromaDB collection
+    Function to store embeddings in the ChromaDB collection
     """
 
     ids = [f"{file_name}_{i}" for i in range(len(split_docs))]
@@ -50,22 +50,21 @@ def store_embeddings(split_docs, embeddings, file_name: str):
 
 def add_document(file_path: str, file_name: str, file_extension: str, chunk_size=1000, chunk_overlap=200, sleep_time=0):
     """
-    Function to add a document to the knowledge base of the RAG model
+    Function to add a document to the sources of the RAG model
     """
 
     # Load the file
-    docs = load_documents(file_path, file_extension)
-    print(f"Number of documents loaded: {len(docs)}")
+    docs = load_file(file_path, file_extension)
 
     # Split the documents into chunks
     split_docs = split_documents(docs, chunk_size, chunk_overlap)
-    print(f"Number of documents after splitting: {len(split_docs)}")
+    print(f"Number of split documents: {len(split_docs)}")
 
     # Generate embeddings for each document
     embeddings = []
 
-    for i, doc in enumerate(split_docs):
-        print(f"Generating embeddings for document {i + 1}/{len(split_docs)}...")
+    for index, doc in enumerate(split_docs):
+        print(f"Generating embeddings for document {index + 1}/{len(split_docs)}...")
 
         embedding = generate_embedding(doc.page_content)
         embeddings.append(embedding)
@@ -76,7 +75,7 @@ def add_document(file_path: str, file_name: str, file_extension: str, chunk_size
 
 def delete_document(file_name: str):
     """
-    Function to delete a document from the knowledge base of the RAG model
+    Function to delete a document from the sources of the RAG model
     """
 
     # Delete the document from the collection
