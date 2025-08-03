@@ -42,7 +42,7 @@ class DataPipelines:
         file_name = f"{domain_name}.txt"
 
         # Data directory to save the data
-        data_dir = settings.data_directory
+        data_dir = settings.data_directory_path
         os.makedirs(data_dir, exist_ok=True)
 
         # Save the file to the data directory

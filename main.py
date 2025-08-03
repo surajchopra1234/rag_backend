@@ -59,14 +59,14 @@ async def list_documents_endpoint():
 
     try:
         # List all the files in the knowledge base
-        os.makedirs(settings.data_directory, exist_ok=True)
-        files = os.listdir(settings.data_directory)
+        os.makedirs(settings.data_directory_path, exist_ok=True)
+        files = os.listdir(settings.data_directory_path)
 
         documents = []
         for file_name in files:
             if file_name.endswith('.json'):
                 # Load metadata from the JSON file
-                json_path = os.path.join(settings.data_directory, file_name)
+                json_path = os.path.join(settings.data_directory_path, file_name)
                 with open(json_path, 'r') as buffer:
                     metadata = json.load(buffer)
                     documents.append(metadata)
@@ -111,7 +111,7 @@ async def upload_document_endpoint(file: UploadFile):
         content_bytes = await file.read()
 
         # Data directory to save the data
-        data_dir = settings.data_directory
+        data_dir = settings.data_directory_path
         os.makedirs(data_dir, exist_ok=True)
 
         # Save the file to the data directory
@@ -191,12 +191,12 @@ async def delete_documents_endpoint(body: DeleteDocument):
 
     try:
         # List all the files in the knowledge base
-        files = os.listdir(settings.data_directory)
+        files = os.listdir(settings.data_directory_path)
 
         for file_name in files:
             if file_name == body.file_name:
                 # Delete the document file
-                file_path = os.path.join(settings.data_directory, file_name)
+                file_path = os.path.join(settings.data_directory_path, file_name)
                 if os.path.exists(file_path):
                     os.remove(file_path)
 
